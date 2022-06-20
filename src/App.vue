@@ -1,21 +1,68 @@
-<script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <el-dropdown class="m-4" type="primary">
+    <el-button type="primary" plain>
+      Dropdown List<el-icon class="el-icon--right"><arrow-down /></el-icon>
+    </el-button>
+    <template #dropdown>
+      <el-dropdown-menu>
+        <el-dropdown-item>Action 1</el-dropdown-item>
+        <el-dropdown-item>Action 2</el-dropdown-item>
+        <el-dropdown-item>Action 3</el-dropdown-item>
+        <el-dropdown-item>Action 4</el-dropdown-item>
+        <el-dropdown-item>Action 5</el-dropdown-item>
+      </el-dropdown-menu>
+    </template>
+  </el-dropdown>
+
+  <br />
+
+  <el-button class="m-4" @click="hello">Hello</el-button>
+  <el-button class="m-4" type="primary" @click="hello" plain>Hello</el-button>
+
+  <br />
+
+  <Counter class="m-4" />
+
+  <br />
+
+  <el-icon class="cursor-pointer">
+    <Grape />
+  </el-icon>
+  <el-icon class="cursor-pointer">
+    <IceCream />
+  </el-icon>
+  <el-icon class="cursor-pointer mb-4">
+    <IceDrink />
+  </el-icon>
+
+  <br />
+
+  <client-only>
+    <el-config-provider :locale="zhCn">
+      <el-date-picker
+        v-model="timeValue"
+        type="date"
+        placeholder="请选择日期"
+      ></el-date-picker>
+    </el-config-provider>
+  </client-only>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<script setup lang="ts">
+import {
+  ElIcon,
+  ElButton,
+  ElDropdown,
+  ElDropdownMenu,
+  ElDropdownItem,
+  ElConfigProvider,
+  ElDatePicker,
+  ElMessage,
+} from "element-plus/dist/index.full.js";
+import zhCn from "element-plus/dist/locale/zh-cn.js";
+import { Grape, IceCream, IceDrink, ArrowDown } from "@element-plus/icons-vue";
+import { ref } from "vue"
+
+const timeValue = ref("");
+const hello =  () => ElMessage.info("hello world");
+</script>
